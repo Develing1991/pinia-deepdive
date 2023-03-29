@@ -1,10 +1,12 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { groupBy } from "lodash";
 import { useAuthUserStore } from "./AuthUserStore";
+import { useLocalStorage } from "@vueuse/core";
+
 export const useCartStore = defineStore("CartStore", {
   historyEnabled: true,
   state: () => ({
-    items: [],
+    items: useLocalStorage("CartStore:items", []),
   }),
   getters: {
     // arrow function에서는 this는 사용불가
